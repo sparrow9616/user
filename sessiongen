@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Puii - UserBot
+# Copyright (C) 2023-2024
+#
+# This file is a part of < https://github.com/AellyXD/Puii >
+# PLease read the GNU Affero General Public License in <https://www.github.com/AellyXD/Puii/blob/main/LICENSE/>.
+
+bash resources/session/session.sh

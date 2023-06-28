@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Puii - UserBot
+# Copyright (C) 2023-24
+#this file is the part of https://AellyXD/Puii
+
+if [ -d "resources" ]
+then
+    echo "Current directory Identified.."
+else
+    apt install git -y
+    git clone https://github.com/AellyXD/Puii
+    cd Puii
+fi
+bash resources/startup/termux.sh
