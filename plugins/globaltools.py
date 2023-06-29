@@ -634,7 +634,7 @@ async def _(e):
     gmute(userid)
     await xx.edit(f"`Gmuted` {inline_mention(name)} `in {chats} chats.`")
 
-@puii_cmd(pattern="gdmute( (.*)|$)", fullsudo=False)
+@puii_cmd(pattern="gdmute( (.*)|$)")
 async def startgmute(event):
     if event.is_private:
         await event.edit("`Unexpected issues or ugly errors may occur!`")
@@ -691,7 +691,7 @@ async def startgmute(event):
     #        await reply.forward_to(BOTLOG_CHATID)
 
 
-@puii_cmd(pattern="ungmute( (.*)|$)", fullsudo=False)
+@puii_cmd(pattern="ungmute( (.*)|$)")
 async def endgmute(event):
     if event.is_private:
         await event.edit("`Unexpected issues or ugly errors may occur!`")
