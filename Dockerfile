@@ -1,4 +1,4 @@
-FROM sparrow9616/user:main
+FROM aellyxd/puii:main
 
 # set timezone
 ENV TZ=Asia/Kolkata
