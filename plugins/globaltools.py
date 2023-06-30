@@ -56,7 +56,7 @@ from pyPuii.dB.gban_mute_db import (
     ungmute,
     gdmute,
     ungdmute,
-    is_gdmute,
+    is_gdmuted,
 )
 from pyPuii.fns.tools import create_tl_btn, format_btn, get_msg_button
 
