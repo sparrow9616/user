@@ -833,5 +833,5 @@ async def gblacker(event, type_):
     await event.eor(f"Global Broadcasts: \n{type_}ed {chat_id}")
 
 
-if udB.get_key("is_gdmuted"):
+if udB.get_key("GDMUTE"):
     puii_bot.add_handler(watcher, events.NewMessage(incoming=True))
