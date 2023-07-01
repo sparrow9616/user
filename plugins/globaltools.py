@@ -699,7 +699,7 @@ async def endgmute(event):
     
     await xx.eor(f"`Ungdmuted` {inline_mention(name)}")
             
-@puii_cmd(incoming=True)
+
 async def watcher(e):
     if is_gdmuted(e.sender_id):
         try:
@@ -826,3 +826,7 @@ async def gblacker(event, type_):
     elif type_ == "remove":
         keym.remove(chat_id)
     await event.eor(f"Global Broadcasts: \n{type_}ed {chat_id}")
+
+
+if udB.get_key("is_gdmuted"):
+    puii_bot.add_handler(watcher, events.NewMessage(incoming=True))
