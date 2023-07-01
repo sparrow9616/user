@@ -633,45 +633,34 @@ async def _(e):
                 pass
     gmute(userid)
     await xx.edit(f"`Gmuted` {inline_mention(name)} `in {chats} chats.`")
-
 @puii_cmd(pattern="gdmute( (.*)|$)")
-async def startgmute(event):
-    if event.is_private:
-        await event.edit("`Unexpected issues or ugly errors may occur!`")
-        await asyncio.sleep(2)
-        userid = event.chat_id
-        reason = event.pattern_match.group(1)
+async def startgmute(e):
+    xx = await e.eor("`Gmuting...`")
+    if e.is_private:
+        userid = e.chat_id
+    elif e.reply_to_msg_id:
+        userid = (await e.get_reply_message()).sender_id
+    elif e.pattern_match.group(1).strip():
+        userid = await e.client.parse_id(e.pattern_match.group(1).strip())
     else:
-        user, reason = await get_user_from_event(event)
-        if not user:
-            return
-        if user.id == puii_bot.uid:
-            return await edit_or_reply(event, "`Sorry, I can't gmute myself`")
-        userid = user.id
+        return await xx.eor("`Reply to some msg or add their id.`", tome=5, time=5)
     try:
-        user = await event.client.get_entity(userid)
+        name = await e.client.get_entity(userid)
     except Exception:
-        return await edit_or_reply(event, "`Sorry. I am unable to fetch the user`")
+        return await edit_or_reply(e, "`Sorry. I am unable to fetch the user`")
     if is_gdmuted(userid):
         return await edit_or_reply(
-            event,
-            f"{_format.mentionuser(user.first_name ,user.id)} ` is already gdmuted`",
+            e,
+            f"`User is already gdmuted`",
         )
     try:
         gdmute(userid)
-    except Exception as e:
-        await edit_or_reply(event, f"**Error**\n`{e}`")
-    else:
-        if reason:
-            await edit_or_reply(
-                event,
-                f"{_format.mentionuser(user.first_name ,user.id)} `is Successfully gmuted`\n**Reason :** `{reason}`",
-            )
-        else:
-            await edit_or_reply(
-                event,
-                f"{_format.mentionuser(user.first_name ,user.id)} `is Successfully gmuted`",
-            )
+    except Exception as ex:
+        await edit_or_reply(e, f"**Error**\n`{ex}`")
+    
+    await edit_or_reply(
+                e,
+                f"`Gdmuted` {inline_mention(name)} `in {chats} chats.`")
     #if BOTLOG:
     #    reply = await event.get_reply_message()
     #    if reason:
