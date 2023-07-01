@@ -71,8 +71,11 @@ from . import (
     inline_mention,
     puii_bot,
     puii_cmd,
+    events, 
+    udB,
 )
 from ._inline import something
+
 
 _gpromote_rights = ChatAdminRights(
     add_admins=False,
@@ -656,6 +659,8 @@ async def startgmute(e):
         await xx.eor(f"**Error**\n`{ex}`")
     
     await xx.eor(f"`Gdmuted` {inline_mention(name)}")
+    puii_bot.add_handler(watcher, events.NewMessage(incoming=True))
+
     #if BOTLOG:
     #    reply = await event.get_reply_message()
     #    if reason:
