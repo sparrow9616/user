@@ -681,7 +681,7 @@ async def startgmute(e):
 
 
 @puii_cmd(pattern="ungdmute( (.*)|$)")
-async def endgmute(event):
+async def endgmute(e):
     xx = await e.eor("`Ungdmuting...`")
     if e.is_private:
         userid = e.chat_id
