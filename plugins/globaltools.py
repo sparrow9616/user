@@ -647,20 +647,20 @@ async def startgmute(e):
     try:
         name = await e.client.get_entity(userid)
     except Exception:
-        return await edit_or_reply(e, "`Sorry. I am unable to fetch the user`")
+        return await xx.eor(e, "`Sorry. I am unable to fetch the user`")
     if is_gdmuted(userid):
-        return await edit_or_reply(
+        return await xx.eor(
             e,
             f"`User is already gdmuted`",
         )
     try:
         gdmute(userid)
     except Exception as ex:
-        await edit_or_reply(e, f"**Error**\n`{ex}`")
+        await xx.eor(e, f"**Error**\n`{ex}`")
     
-    await edit_or_reply(
+    await xx.eor(
                 e,
-                f"`Gdmuted` {inline_mention(name)} `in {chats} chats.`")
+                f"`Gdmuted` {inline_mention(name)}")
     #if BOTLOG:
     #    reply = await event.get_reply_message()
     #    if reason:
@@ -680,38 +680,34 @@ async def startgmute(e):
     #        await reply.forward_to(BOTLOG_CHATID)
 
 
-@puii_cmd(pattern="ungmute( (.*)|$)")
+@puii_cmd(pattern="ungdmute( (.*)|$)")
 async def endgmute(event):
-    if event.is_private:
-        await event.edit("`Unexpected issues or ugly errors may occur!`")
-        await asyncio.sleep(2)
-        userid = event.chat_id
-        reason = event.pattern_match.group(1)
+    xx = await e.eor("`Ungdmuting...`")
+    if e.is_private:
+        userid = e.chat_id
+    elif e.reply_to_msg_id:
+        userid = (await e.get_reply_message()).sender_id
+    elif e.pattern_match.group(1).strip():
+        userid = await e.client.parse_id(e.pattern_match.group(1).strip())
     else:
-        user, reason = await get_user_from_event(event)
-        if not user:
-            return
-        if user.id == puii_bot.uid:
-            return await edit_or_reply(event, "`Sorry false entry")
-        userid = user.id
+        return await xx.eor("`Reply to some msg or add their id.`", tome=5, time=5)
     try:
-        user = await event.client.get_entity(userid)
+        name = await e.client.get_entity(userid)
     except Exception:
-        return await edit_or_reply(event, "`Sorry. I am unable to fetch the user`")
+        return await xx.eor(e, "`Sorry. I am unable to fetch the user`")
     if not is_gdmuted(userid):
-        return await edit_or_reply(
-            event, f"{_format.mentionuser(user.first_name ,user.id)} `is not gmuted`"
+        return await xx.eor(
+            e,
+            f"`User is not gdmuted`",
         )
     try:
         ungdmute(userid)
-        await edit_or_reply(
-                event,
-                f"{_format.mentionuser(user.first_name ,user.id)} `is Successfully ungmuted`",
-            )
-
-    except Exception as e:
-        await edit_or_reply(event, f"**Error**\n`{e}`")
-
+    except Exception as ex:
+        await xx.eor(e, f"**Error**\n`{ex}`")
+    
+    await xx.eor(
+                e,
+                f"`Ungdmuted` {inline_mention(name)}")
             
 @puii_cmd(incoming=True)
 async def watcher(event):
