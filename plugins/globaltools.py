@@ -647,20 +647,15 @@ async def startgmute(e):
     try:
         name = await e.client.get_entity(userid)
     except Exception:
-        return await xx.eor(e, "`Sorry. I am unable to fetch the user`")
+        return await xx.eor("`Sorry. I am unable to fetch the user`")
     if is_gdmuted(userid):
-        return await xx.eor(
-            e,
-            f"`User is already gdmuted`",
-        )
+        return await xx.eor("`User is already gdmuted`")
     try:
         gdmute(userid)
     except Exception as ex:
-        await xx.eor(e, f"**Error**\n`{ex}`")
+        await xx.eor(f"**Error**\n`{ex}`")
     
-    await xx.eor(
-                e,
-                f"`Gdmuted` {inline_mention(name)}")
+    await xx.eor(f"`Gdmuted` {inline_mention(name)}")
     #if BOTLOG:
     #    reply = await event.get_reply_message()
     #    if reason:
@@ -694,28 +689,23 @@ async def endgmute(event):
     try:
         name = await e.client.get_entity(userid)
     except Exception:
-        return await xx.eor(e, "`Sorry. I am unable to fetch the user`")
+        return await xx.eor("`Sorry. I am unable to fetch the user`")
     if not is_gdmuted(userid):
-        return await xx.eor(
-            e,
-            f"`User is not gdmuted`",
-        )
+        return await xx.eor(f"`User is not gdmuted`")
     try:
         ungdmute(userid)
     except Exception as ex:
-        await xx.eor(e, f"**Error**\n`{ex}`")
+        await xx.eor(f"**Error**\n`{ex}`")
     
-    await xx.eor(
-                e,
-                f"`Ungdmuted` {inline_mention(name)}")
+    await xx.eor(f"`Ungdmuted` {inline_mention(name)}")
             
 @puii_cmd(incoming=True)
-async def watcher(event):
-    if is_gdmuted(event.sender_id):
+async def watcher(e):
+    if is_gdmuted(e.sender_id):
         try:
-            await event.delete()
-        except Exception as e:
-            await edit_or_reply(event, f"**Error**\n`{e}`")
+            await e.delete()
+        except Exception as ev:
+            await e.eor(f"**Error**\n`{ev}`")
 
 @puii_cmd(pattern="ungmute( (.*)|$)", fullsudo=True)
 async def _(e):
