@@ -274,7 +274,7 @@ async def _(event):
         if isinstance(i.status, UserStatusEmpty):
             if "empty" in input_str:
                 try:
-                    await event.client.kick_participant(event.chat_id, i)
+                    await event.client.edit_permissions(event.chat_id, i,view_messages=False)
                     c += 1
                 except BaseException:
                     pass
@@ -283,7 +283,7 @@ async def _(event):
         if isinstance(i.status, UserStatusLastMonth):
             if "month" in input_str:
                 try:
-                    await event.client.kick_participant(event.chat_id, i)
+                    await event.client.edit_permissions(event.chat_id, i,view_messages=False)
                     c += 1
                 except BaseException:
                     pass
@@ -292,7 +292,7 @@ async def _(event):
         if isinstance(i.status, UserStatusLastWeek):
             if "week" in input_str:
                 try:
-                    await event.client.kick_participant(event.chat_id, i)
+                    await event.client.edit_permissions(event.chat_id, i,view_messages=False)
                     c += 1
                 except BaseException:
                     pass
@@ -301,7 +301,7 @@ async def _(event):
         if isinstance(i.status, UserStatusOffline):
             if "offline" in input_str:
                 try:
-                    await event.client.kick_participant(event.chat_id, i)
+                    await event.client.edit_permissions(event.chat_id, i,view_messages=False)
                     c += 1
                 except BaseException:
                     pass
@@ -310,7 +310,7 @@ async def _(event):
         if isinstance(i.status, UserStatusOnline):
             if "online" in input_str:
                 try:
-                    await event.client.kick_participant(event.chat_id, i)
+                    await event.client.edit_permissions(event.chat_id, i,view_messages=False)
                     c += 1
                 except BaseException:
                     pass
@@ -319,7 +319,7 @@ async def _(event):
         if isinstance(i.status, UserStatusRecently):
             if "recently" in input_str:
                 try:
-                    await event.client.kick_participant(event.chat_id, i)
+                    await event.client.edit_permissions(event.chat_id, i,view_messages=False)
                     c += 1
                 except BaseException:
                     pass
@@ -328,7 +328,7 @@ async def _(event):
         if i.bot:
             if "bot" in input_str:
                 try:
-                    await event.client.kick_participant(event.chat_id, i)
+                    await event.client.edit_permissions(event.chat_id, i,view_messages=False)
                     c += 1
                 except BaseException:
                     pass
@@ -337,7 +337,7 @@ async def _(event):
         elif i.deleted:
             if "deleted" in input_str:
                 try:
-                    await event.client.kick_participant(event.chat_id, i)
+                    await event.client.edit_permissions(event.chat_id, i,view_messages=False)
                     c += 1
                 except BaseException:
                     pass
@@ -346,7 +346,7 @@ async def _(event):
         elif i.status is None:
             if "none" in input_str:
                 try:
-                    await event.client.kick_participant(event.chat_id, i)
+                    await event.client.edit_permissions(event.chat_id, i,view_messages=False)
                     c += 1
                 except BaseException:
                     pass
