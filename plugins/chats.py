@@ -4,21 +4,26 @@
 # This file is a part of < https://github.com/TeamUltroid/Ultroid/ >
 # PLease read the GNU Affero General Public License in
 # <https://www.github.com/TeamUltroid/Ultroid/blob/main/LICENSE/>.
+import asyncio
 from . import get_help
 
 __doc__ = get_help("help_chats")
 
 
 from telethon.errors import ChatAdminRequiredError as no_admin
+from telethon.errors import BadRequestError
+from telethon.errors.rpcerrorlist import ChatNotModifiedError, UserIdInvalidError
 from telethon.tl.functions.channels import (
     CreateChannelRequest,
+    EditAdminRequest,
     DeleteChannelRequest,
     EditPhotoRequest,
     GetFullChannelRequest,
     UpdateUsernameRequest,
-)
+) 
 from telethon.tl.functions.messages import (
     CreateChatRequest,
+    SetHistoryTTLRequest
     ExportChatInviteRequest,
     GetFullChatRequest,
 )
@@ -32,8 +37,12 @@ from telethon.tl.types import (
     UserStatusOnline,
     UserStatusRecently,
 )
+from telethon.utils import get_display_name
+from pyPuii.dB import DEVLIST
+from pyPuii.fns.admins import ban_time
+from pyPuii.fns.info import get_uinfo
 
-from . import HNDLR, LOGS, asst, con, get_string, mediainfo, os, types, udB, puii_cmd
+from . import HNDLR, LOGS, asst, con, get_string, mediainfo, os, types, udB, puii_cmd,eod, eor,types
 
 
 @puii_cmd(
@@ -263,7 +272,7 @@ async def _(event):
     pattern="rmusers( (.*)|$)",
     groups_only=True,
     admins_only=True,
-    fullsudo=True,
+    fullsudo=False,
 )
 async def _(event):
     xx = await event.eor(get_string("com_1"))
